@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoInventoryPro.Controller", "AutoInventoryPro.Controller\AutoInventoryPro.Controller.csproj", "{F1ED43E1-FD3F-4446-81D1-FEB9C72F166A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoInventoryPro.Controllers", "AutoInventoryPro.Controller\AutoInventoryPro.Controllers.csproj", "{F1ED43E1-FD3F-4446-81D1-FEB9C72F166A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoInventoryPro.Models", "AutoInventoryPro.Models\AutoInventoryPro.Models.csproj", "{5ED55AF3-2FA0-49C5-A0A3-55CE4C598B90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoInventoryPro.Views", "AutoInventoryPro.Views\AutoInventoryPro.Views.csproj", "{BB499B76-B801-44FB-B18D-7CDC94EE7B2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoInventoryPro.Services", "AutoInventoryPro.Services\AutoInventoryPro.Services.csproj", "{5E2BFEE6-3258-41A4-AE31-3D423653A3A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoInventoryPro.Infraestructure", "AutoInventoryPro.Infraestructure\AutoInventoryPro.Infraestructure.csproj", "{9708BB77-F1BB-45D3-BAC1-2BFBD85A5E51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{F1ED43E1-FD3F-4446-81D1-FEB9C72F166A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1ED43E1-FD3F-4446-81D1-FEB9C72F166A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1ED43E1-FD3F-4446-81D1-FEB9C72F166A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ED55AF3-2FA0-49C5-A0A3-55CE4C598B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED55AF3-2FA0-49C5-A0A3-55CE4C598B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED55AF3-2FA0-49C5-A0A3-55CE4C598B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED55AF3-2FA0-49C5-A0A3-55CE4C598B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB499B76-B801-44FB-B18D-7CDC94EE7B2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB499B76-B801-44FB-B18D-7CDC94EE7B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB499B76-B801-44FB-B18D-7CDC94EE7B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB499B76-B801-44FB-B18D-7CDC94EE7B2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E2BFEE6-3258-41A4-AE31-3D423653A3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E2BFEE6-3258-41A4-AE31-3D423653A3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E2BFEE6-3258-41A4-AE31-3D423653A3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E2BFEE6-3258-41A4-AE31-3D423653A3A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9708BB77-F1BB-45D3-BAC1-2BFBD85A5E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9708BB77-F1BB-45D3-BAC1-2BFBD85A5E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9708BB77-F1BB-45D3-BAC1-2BFBD85A5E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9708BB77-F1BB-45D3-BAC1-2BFBD85A5E51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
