@@ -1,4 +1,12 @@
+using AutoInventoryPro.Infraestructure.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//var connectionString = Configuration.GetConnectionString("DevFreelaCs");
+builder.Services.AddDbContext<AutoInventoryProDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AutoInventoryDatabase"))
+);
 
 // Add services to the container.
 
