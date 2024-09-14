@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutoInventoryPro.Infraestructure.Repositories;
 
-public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     private readonly AutoInventoryProDbContext _context;
     private readonly DbSet<T> _dbSet;

@@ -9,6 +9,7 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
     public void Configure(EntityTypeBuilder<Vehicle> builder)
     {
         builder.ToTable("Veiculos");
+        builder.HasKey(d => d.Id);
 
         builder.Property(d => d.Id).HasColumnName("VeiculoID").IsRequired();
         builder.Property(d => d.VehicleModel).HasColumnName("Modelo").IsRequired();

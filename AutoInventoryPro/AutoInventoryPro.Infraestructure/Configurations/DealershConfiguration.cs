@@ -9,6 +9,7 @@ public class DealershConfiguration : IEntityTypeConfiguration<Dealersh>
     public void Configure(EntityTypeBuilder<Dealersh> builder)
     {
         builder.ToTable("Concessionarias");
+        builder.HasKey(d => d.Id);
 
         builder.Property(d => d.Id).HasColumnName("ConcessionariaID").IsRequired();
         builder.Property(d => d.Name).HasColumnName("Nome").IsRequired();

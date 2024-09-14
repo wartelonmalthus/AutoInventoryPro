@@ -9,6 +9,7 @@ public class FabricatorConfiguration : IEntityTypeConfiguration<Fabricator>
     public void Configure(EntityTypeBuilder<Fabricator> builder)
     {
         builder.ToTable("Fabricantes");
+        builder.HasKey(d => d.Id);
 
         builder.Property(d => d.Id).HasColumnName("FabricanteID").IsRequired();
         builder.Property(d => d.Name).HasColumnName("Nome").IsRequired();

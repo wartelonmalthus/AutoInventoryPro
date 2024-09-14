@@ -9,6 +9,7 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
     public void Configure(EntityTypeBuilder<Client> builder)
     {
         builder.ToTable("Clientes");
+        builder.HasKey(d => d.Id);
 
         builder.Property(c => c.Id).HasColumnName("ClienteID").IsRequired();
         builder.Property(c => c.Name).HasColumnName("Nome").IsRequired();

@@ -9,6 +9,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("Usuarios");
+        builder.HasKey(d => d.Id);
 
         builder.Property(d => d.Id).HasColumnName("UsuarioID").IsRequired();
         builder.Property(d => d.Name).HasColumnName("NomeUsuario").IsRequired();
