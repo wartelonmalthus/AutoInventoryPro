@@ -4,3 +4,10 @@
 
 /AutoInventoryPro/.vs
 /AutoInventoryPro/AutoInventoryPro.Controller/obj
+bin/
+obj/
+.vs/
+*.user
+*.suo
+.vscode/
+*.nupkg
