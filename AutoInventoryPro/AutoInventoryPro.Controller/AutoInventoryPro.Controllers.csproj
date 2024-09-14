@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutoInventoryPro.Infraestructure\AutoInventoryPro.Infraestructure.csproj" />
+    <ProjectReference Include="..\AutoInventoryPro.Services\AutoInventoryPro.Services.csproj" />
   </ItemGroup>
 
 </Project>
