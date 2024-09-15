@@ -35,9 +35,7 @@ public class Dealersh : BaseEntity
     /// </summary>
     public int MaximumCapacityVehicles { get; set; }
 
-
-
     // Relacionamento EF
-    public IEnumerable<Sale> Sales { get; set; }
+    public HashSet<Sale> Sales { get; set; } = new HashSet<Sale>();
 
 }

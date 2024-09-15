@@ -11,7 +11,7 @@ public class DealershConfiguration : IEntityTypeConfiguration<Dealersh>
         builder.ToTable("Concessionarias");
         builder.HasKey(d => d.Id);
 
-        builder.Property(d => d.Id).HasColumnName("ConcessionariaID").IsRequired();
+        builder.Property(d => d.Id).HasColumnName("ConcessionariaID").IsRequired().ValueGeneratedOnAdd();
         builder.Property(d => d.Name).HasColumnName("Nome").IsRequired();
         builder.Property(d => d.Address).HasColumnName("Endereco").IsRequired();
         builder.Property(d => d.City).HasColumnName("Cidade").IsRequired();

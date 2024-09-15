@@ -11,7 +11,7 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
         builder.ToTable("Clientes");
         builder.HasKey(d => d.Id);
 
-        builder.Property(c => c.Id).HasColumnName("ClienteID").IsRequired();
+        builder.Property(c => c.Id).HasColumnName("ClienteID").IsRequired().ValueGeneratedOnAdd();
         builder.Property(c => c.Name).HasColumnName("Nome").IsRequired();
         builder.Property(c => c.CPF).HasColumnName("CPF").IsRequired();
         builder.Property(c => c.Phone).HasColumnName("Telefone").IsRequired();
@@ -19,6 +19,6 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
         builder.Property(c => c.UpdatedAt).HasColumnName("AlteradoEm");
         builder.Property(c => c.SoftDelete).HasColumnName("Delecao_Logica");
 
-       builder.HasMany(c => c.Sales).WithOne(s => s.Client).HasForeignKey(s => s.IdClient).OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(c => c.Sales).WithOne(s => s.Client).HasForeignKey(s => s.IdClient).OnDelete(DeleteBehavior.Restrict);
     }
 }

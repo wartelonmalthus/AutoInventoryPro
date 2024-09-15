@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutoInventoryPro.Models\AutoInventoryPro.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mappers\" />
+    <ProjectReference Include="..\AutoInventoryPro.Views\AutoInventoryPro.Views.csproj" />
   </ItemGroup>
 
 </Project>

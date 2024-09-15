@@ -11,7 +11,7 @@ public class FabricatorConfiguration : IEntityTypeConfiguration<Fabricator>
         builder.ToTable("Fabricantes");
         builder.HasKey(d => d.Id);
 
-        builder.Property(d => d.Id).HasColumnName("FabricanteID").IsRequired();
+        builder.Property(d => d.Id).HasColumnName("FabricanteID").IsRequired().ValueGeneratedOnAdd();
         builder.Property(d => d.Name).HasColumnName("Nome").IsRequired();
         builder.Property(d => d.Country).HasColumnName("PaisOrigem").IsRequired();
         builder.Property(d => d.YearFoundation).HasColumnName("AnoFundacao").IsRequired();

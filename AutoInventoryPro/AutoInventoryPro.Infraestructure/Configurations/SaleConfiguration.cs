@@ -12,7 +12,7 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
         builder.ToTable("Vendas");
         builder.HasKey(d => d.Id);
 
-        builder.Property(d => d.Id).HasColumnName("VendaID").IsRequired();
+        builder.Property(d => d.Id).HasColumnName("VendaID").IsRequired().ValueGeneratedOnAdd();
         builder.Property(d => d.DataSale).HasColumnName("DataVenda").IsRequired();
         builder.Property(d => d.SalePrice).HasColumnName("PrecoVenda").IsRequired();
         builder.Property(d => d.SaleProtocol).HasColumnName("ProtocoloVenda").IsRequired();

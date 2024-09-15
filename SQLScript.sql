@@ -9,7 +9,7 @@ GO
 -- Tabela Fabricantes
 -- -----------------------------------------------------
 CREATE TABLE Fabricantes (
-    FabricanteID INT NOT NULL PRIMARY KEY,
+    FabricanteID INT NOT NULL IDENTITY(1,1)  PRIMARY KEY,
     Nome NVARCHAR(100) UNIQUE,
     PaisOrigem NVARCHAR(50),
     AnoFundacao INT,
@@ -24,7 +24,7 @@ GO
 -- Tabela Veiculos
 -- -----------------------------------------------------
 CREATE TABLE Veiculos (
-    VeiculoID INT NOT NULL PRIMARY KEY,
+    VeiculoID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     Modelo NVARCHAR(100),
     AnoFabricacao INT,
     Preco DECIMAL(10,2),
@@ -42,7 +42,7 @@ GO
 -- Tabela Concessionarias
 -- -----------------------------------------------------
 CREATE TABLE Concessionarias (
-    ConcessionariaID INT NOT NULL PRIMARY KEY,
+    ConcessionariaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     Nome NVARCHAR(100) UNIQUE,
     Endereco NVARCHAR(255),
     Cidade NVARCHAR(50),
@@ -61,7 +61,7 @@ GO
 -- Tabela Clientes
 -- -----------------------------------------------------
 CREATE TABLE Clientes (
-    ClienteID INT NOT NULL PRIMARY KEY,
+    ClienteID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     Nome NVARCHAR(100) UNIQUE,
     CPF NVARCHAR(11) UNIQUE,
     Telefone NVARCHAR(15),
@@ -75,7 +75,7 @@ GO
 -- Tabela Vendas
 -- -----------------------------------------------------
 CREATE TABLE Vendas (
-    VendaID INT NOT NULL PRIMARY KEY,
+    VendaID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     DataVenda DATETIME,
     PrecoVenda DECIMAL(10,2),
     ProtocoloVenda NVARCHAR(20),
@@ -95,13 +95,13 @@ GO
 -- Tabela Usuarios
 -- -----------------------------------------------------
 CREATE TABLE Usuarios (
-    UsuarioID INT NOT NULL PRIMARY KEY,
-    NomeUsuario NVARCHAR(50),
-    Senha NVARCHAR(255),
-    Email NVARCHAR(100),
-    NivelAcesso INT,
+    UsuarioID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    NomeUsuario NVARCHAR(50) NOT NULL,
+    Senha NVARCHAR(255) NOT NULL,
+    Email NVARCHAR(100) NOT NULL,
+    NivelAcesso INT NOT NULL,
     CriadoEm DATETIME NOT NULL,
-    AlteradoEm DATETIME NULL,
-    Delecao_Logica BIT DEFAULT 0
+    AlteradoEm DATETIME,
+    Delecao_Logica BIT
 );
 GO

@@ -20,6 +20,6 @@ public class Fabricator : BaseEntity
     public string WebSite { get; set; }
 
     // Relacionamento EF
-    public IEnumerable<Vehicle> Vehicles { get; set; }
+    public HashSet<Vehicle> Vehicles { get; set; } = new HashSet<Vehicle>();
 
 }

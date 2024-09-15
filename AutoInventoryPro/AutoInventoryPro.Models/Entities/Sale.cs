@@ -6,7 +6,6 @@ public class Sale : BaseEntity
     /// Referência à concessionária onde a venda foi realizada.
     /// </summary>
     public int IdDealersh{ get; set; }
-
     /// <summary>
     /// Referência ao veículo vendido.
     /// </summary>
@@ -15,7 +14,6 @@ public class Sale : BaseEntity
     /// Referência ao cliente que realizou a compra.
     /// </summary>
     public int IdClient { get; set; }
-
     /// <summary>
     /// Data e hora da venda.
     /// </summary>
@@ -30,7 +28,7 @@ public class Sale : BaseEntity
     public Guid SaleProtocol { get; set; }
 
     // Relacionamentos EF
-    public IEnumerable<Vehicle> Vehicles { get; set; }
+    public Vehicle Vehicle { get; set; } 
     public Dealersh Dealersh { get; set; }
     public Client Client { get; set; }
 

@@ -11,7 +11,7 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.ToTable("Veiculos");
         builder.HasKey(d => d.Id);
 
-        builder.Property(d => d.Id).HasColumnName("VeiculoID").IsRequired();
+        builder.Property(d => d.Id).HasColumnName("VeiculoID").IsRequired().ValueGeneratedOnAdd();
         builder.Property(d => d.VehicleModel).HasColumnName("Modelo").IsRequired();
         builder.Property(d => d.YearManufacture).HasColumnName("AnoFabricacao").IsRequired();
         builder.Property(d => d.Price).HasColumnName("Preco").IsRequired();

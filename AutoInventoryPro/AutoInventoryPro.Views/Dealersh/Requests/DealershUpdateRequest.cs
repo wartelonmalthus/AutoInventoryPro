@@ -21,7 +21,6 @@ public class DealershUpdateRequest
     [StringLength(15, ErrorMessage = "O telefone deve ter no máximo 15 dígitos.")]
     [RegularExpression(@"^\d{0,15}$", ErrorMessage = "O telefone deve conter apenas números.")]
     public string? Phone { get; set; }
-
     [Range(1, int.MaxValue, ErrorMessage = "A capacidade máxima de veículos deve ser um número positivo.")]
-    public int MaximumCapacityVehicles { get; set; }
+    public int? MaximumCapacityVehicles { get; set; }
 }
