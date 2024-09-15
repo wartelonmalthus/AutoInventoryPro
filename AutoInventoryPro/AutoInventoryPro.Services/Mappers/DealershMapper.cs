@@ -27,7 +27,6 @@ public static class DealershMapper
         City= dealersh.City,
         MaximumCapacityVehicles = dealersh.MaximumCapacityVehicles,
         Name= dealersh.Name,
-        Phone= dealersh.Phone,
-        Sales = dealersh.Sales
+        Phone= dealersh.Phone
     };
 }

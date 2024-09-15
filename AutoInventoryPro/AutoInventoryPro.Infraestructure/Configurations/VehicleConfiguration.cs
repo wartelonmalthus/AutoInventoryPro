@@ -21,5 +21,8 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.Property(c => c.CreateAt).HasColumnName("CriadoEm").IsRequired();
         builder.Property(c => c.UpdatedAt).HasColumnName("AlteradoEm");
         builder.Property(c => c.SoftDelete).HasColumnName("Delecao_Logica");
+
+        builder.HasMany(v => v.Sales).WithOne(s => s.Vehicle).HasForeignKey(s => s.IdVehicle).OnDelete(DeleteBehavior.Restrict);
+
     }
 }

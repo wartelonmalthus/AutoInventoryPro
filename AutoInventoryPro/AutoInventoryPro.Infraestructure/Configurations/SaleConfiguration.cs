@@ -23,7 +23,5 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
         builder.Property(c => c.UpdatedAt).HasColumnName("AlteradoEm");
         builder.Property(c => c.SoftDelete).HasColumnName("Delecao_Logica");
 
-
-        builder.HasMany(v => v.Vehicles).WithOne(v => v.Sale).OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -21,7 +21,6 @@ public static class FabricatorMapper
         Country = fabricator.Country,
         WebSite = fabricator.WebSite,
         YearFoundation = fabricator.YearFoundation,
-        vehicleResponses = fabricator.Vehicles,
-
+        vehicleResponses = fabricator.Vehicles.ToResponse()
     };
 }

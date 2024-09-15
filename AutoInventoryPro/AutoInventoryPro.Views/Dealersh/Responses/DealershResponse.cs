@@ -1,4 +1,4 @@
-﻿using AutoInventoryPro.Models.Entities;
+﻿using AutoInventoryPro.Views.Sale.Responses;
 
 namespace AutoInventoryPro.Views.Dealersh.Responses;
 
@@ -12,5 +12,4 @@ public class DealershResponse
     public string Email { get; set; }
     public string Phone { get; set; }
     public int MaximumCapacityVehicles { get; set; }
-    public IEnumerable<SaleResponse> Sales { get; set; } 
 }

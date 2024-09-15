@@ -20,11 +20,4 @@ public static class ClientMapper
         Phone = request.Phone
     };
 
-    public static Client ToEntity(this ClientUpdateRequest request) => new()
-    {
-        CPF = request.CPF,
-        Name = request.Name,
-        Phone = request.Phone
-    };
-
 }
