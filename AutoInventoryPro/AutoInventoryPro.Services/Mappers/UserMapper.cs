@@ -1,5 +1,4 @@
 ﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Enums;
 using AutoInventoryPro.Views.User.Requests;
 using AutoInventoryPro.Views.User.Responses;
 

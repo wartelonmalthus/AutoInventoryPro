@@ -1,6 +1,5 @@
-﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Interfaces.Services;
-using AutoInventoryPro.Services.Services;
+﻿using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Views.User.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoInventoryPro.Controllers.Controllers;
@@ -30,26 +29,17 @@ public class UserController(IUserService userService) : ControllerBase
         return Ok(user);
     }
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] User user)
+    public async Task<IActionResult> Create([FromBody] UserCreateRequest userRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        await _userService.AddAsync(user);
-        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+        await _userService.AddAsync(userRequest);
+        //return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+        return Ok();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] User user)
+    public async Task<IActionResult> Update(int id, [FromBody] UserUpdateRequest userRequest)
     {
-        if (id != user.Id)
-        {
-            return BadRequest();
-        }
-
-        await _userService.UpdateAsync(user);
+        await _userService.UpdateAsync(userRequest);
         return NoContent();
     }
 
@@ -59,5 +49,4 @@ public class UserController(IUserService userService) : ControllerBase
         await _userService.DeleteAsync(id);
         return NoContent();
     }
-
 }

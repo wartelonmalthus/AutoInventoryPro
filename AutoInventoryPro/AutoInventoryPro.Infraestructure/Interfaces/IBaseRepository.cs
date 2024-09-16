@@ -1,4 +1,4 @@
-﻿namespace AutoInventoryPro.Models.Interfaces.Repositorires;
+﻿namespace AutoInventoryPro.Infraestructure.Interfaces;
 
 public interface IBaseRepository<T> where T : class
 {

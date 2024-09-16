@@ -1,6 +1,5 @@
-﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Interfaces.Services;
-using AutoInventoryPro.Services.Services;
+﻿using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Views.Vehicle.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoInventoryPro.Controllers.Controllers;
@@ -29,26 +28,17 @@ public class VehicleController(IVehicleService vehicleService) : ControllerBase
         return Ok(vehicle);
     }
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Vehicle vehicle)
+    public async Task<IActionResult> Create([FromBody] VehicleCreateRequest vehicleRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        await _vehicleService.AddAsync(vehicle);
-        return CreatedAtAction(nameof(GetById), new { id = vehicle.Id }, vehicle);
+        await _vehicleService.AddAsync(vehicleRequest);
+        //return CreatedAtAction(nameof(GetById), new { id = vehicle.Id }, vehicle);
+        return Ok();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Vehicle vehicle)
+    public async Task<IActionResult> Update(int id, [FromBody]VehicleUpdateRequest vehicleRequest)
     {
-        if (id != vehicle.Id)
-        {
-            return BadRequest();
-        }
-
-        await _vehicleService.UpdateAsync(vehicle);
+        await _vehicleService.UpdateAsync(vehicleRequest);
         return NoContent();
     }
 

@@ -1,7 +1,9 @@
 using AutoInventoryPro.Infraestructure.Context;
+using AutoInventoryPro.Infraestructure.Interfaces;
 using AutoInventoryPro.Infraestructure.Repositories;
 using AutoInventoryPro.Models.Interfaces.Repositorires;
 using AutoInventoryPro.Models.Interfaces.Services;
+using AutoInventoryPro.Services.Interfaces;
 using AutoInventoryPro.Services.Services;
 using Microsoft.EntityFrameworkCore;
 

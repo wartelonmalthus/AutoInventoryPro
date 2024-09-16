@@ -1,6 +1,5 @@
-﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Interfaces.Services;
-using AutoInventoryPro.Services.Services;
+﻿using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Views.Sale.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoInventoryPro.Controllers.Controllers;
@@ -30,26 +29,17 @@ public class SaleController(ISaleService saleService) : ControllerBase
         return Ok(sale);
     }
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Sale sale)
+    public async Task<IActionResult> Create([FromBody] SaleCreateRequest saleRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        await _saleService.AddAsync(sale);
-        return CreatedAtAction(nameof(GetById), new { id = sale.Id }, sale);
+        await _saleService.AddAsync(saleRequest);
+        //return CreatedAtAction(nameof(GetById), new { id = sale.Id }, sale);
+        return Ok();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Sale sale)
+    public async Task<IActionResult> Update(int id, [FromBody] SaleUpdateRequest saleRequest)
     {
-        if (id != sale.Id)
-        {
-            return BadRequest();
-        }
-
-        await _saleService.UpdateAsync(sale);
+        await _saleService.UpdateAsync(saleRequest);
         return NoContent();
     }
 
@@ -59,7 +49,4 @@ public class SaleController(ISaleService saleService) : ControllerBase
         await _saleService.DeleteAsync(id);
         return NoContent();
     }
-
-
-
 }

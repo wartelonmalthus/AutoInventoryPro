@@ -1,5 +1,5 @@
-﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Interfaces.Services;
+﻿using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Views.Client.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoInventoryPro.Controllers.Controllers;
@@ -30,26 +30,18 @@ public class ClientController(IClientService clientService) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Client client)
+    public async Task<IActionResult> Create([FromBody] ClientCreateRequest clientRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        await _clientService.AddAsync(client);
-        return CreatedAtAction(nameof(GetById), new { id = client.Id }, client);
+        await _clientService.AddAsync(clientRequest);
+        //return CreatedAtAction(nameof(GetById), new { id = client.Id }, client);
+        return Ok();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Client client)
+    public async Task<IActionResult> Update(int id, [FromBody] ClientUpdateRequest clientRequest)
     {
-        if (id != client.Id)
-        {
-            return BadRequest();
-        }
-
-        await _clientService.UpdateAsync(client);
+      
+        await _clientService.UpdateAsync(clientRequest);
         return NoContent();
     }
 

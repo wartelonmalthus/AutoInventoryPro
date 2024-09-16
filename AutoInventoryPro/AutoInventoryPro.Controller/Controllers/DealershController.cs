@@ -1,5 +1,5 @@
-﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Interfaces.Services;
+﻿using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Views.Dealersh.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoInventoryPro.Controllers.Controllers;
@@ -30,26 +30,17 @@ public class DealershController(IDealershService dealershService) : ControllerBa
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Dealersh dealersh)
+    public async Task<IActionResult> Create([FromBody] DealershCreateRequest dealersh)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         await _dealershService.AddAsync(dealersh);
-        return CreatedAtAction(nameof(GetById), new { id = dealersh.Id }, dealersh);
+        //return CreatedAtAction(nameof(GetById), new { id = dealersh.Id }, dealersh);
+        return Ok();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Dealersh dealersh)
+    public async Task<IActionResult> Update(int id, [FromBody] DealershUpdateRequest dealershRequest)
     {
-        if (id != dealersh.Id)
-        {
-            return BadRequest();
-        }
-
-        await _dealershService.UpdateAsync(dealersh);
+        await _dealershService.UpdateAsync(dealershRequest);
         return NoContent();
     }
 
@@ -59,7 +50,4 @@ public class DealershController(IDealershService dealershService) : ControllerBa
         await _dealershService.DeleteAsync(id);
         return NoContent();
     }
-
-
-
 }

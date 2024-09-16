@@ -1,5 +1,5 @@
-﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Interfaces.Services;
+﻿using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Views.Fabricator.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoInventoryPro.Controllers.Controllers;
@@ -29,26 +29,17 @@ public class FabricatorController(IFabricatorService fabricatorService) : Contro
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Fabricator fabricator)
+    public async Task<IActionResult> Create([FromBody] FabricatorCreateRequest fabricatorRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        await _fabricatorService.AddAsync(fabricator);
-        return CreatedAtAction(nameof(GetById), new { id = fabricator.Id }, fabricator);
+        await _fabricatorService.AddAsync(fabricatorRequest);
+        //return CreatedAtAction(nameof(GetById), new { id = fabricator.Id }, fabricator);
+        return Ok();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Fabricator fabricator)
+    public async Task<IActionResult> Update(int id, [FromBody] FabricatorUpdateRequest fabricatorRequest)
     {
-        if (id != fabricator.Id)
-        {
-            return BadRequest();
-        }
-
-        await _fabricatorService.UpdateAsync(fabricator);
+        await _fabricatorService.UpdateAsync(fabricatorRequest);
         return NoContent();
     }
 
