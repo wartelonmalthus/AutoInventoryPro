@@ -20,6 +20,7 @@ public static class DealershMapper
 
     public static DealershResponse ToResponse(this Dealersh dealersh) => new() 
     {
+        IdDealersh = dealersh.Id,
         Address = dealersh.Address,
         Email = dealersh.Email, 
         PostalCode= dealersh.PostalCode,
@@ -29,4 +30,7 @@ public static class DealershMapper
         Name= dealersh.Name,
         Phone= dealersh.Phone
     };
+
+    public static IEnumerable<DealershResponse> ToResponse(this IEnumerable<Dealersh> dealershes) => dealershes.Select(dealershe => dealershe.ToResponse());
+
 }

@@ -40,8 +40,12 @@ public class ClientController(IClientService clientService) : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] ClientUpdateRequest clientRequest)
     {
-      
-        await _clientService.UpdateAsync(clientRequest);
+
+        var response = await _clientService.UpdateAsync(id, clientRequest);
+
+        if (response is false)
+            return NotFound();
+
         return NoContent();
     }
 

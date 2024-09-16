@@ -8,7 +8,7 @@ public interface IClientService
     Task<IEnumerable<ClientResponse>> GetAllAsync();
     Task<ClientResponse> GetByIdAsync(int id);
     Task AddAsync(ClientCreateRequest request);
-    Task UpdateAsync(ClientUpdateRequest entity);
+    Task<bool> UpdateAsync(int id, ClientUpdateRequest request);
     Task DeleteAsync(int id);
 
 }

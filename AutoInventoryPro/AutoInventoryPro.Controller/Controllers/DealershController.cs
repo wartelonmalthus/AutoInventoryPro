@@ -1,4 +1,5 @@
 ﻿using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Services.Services;
 using AutoInventoryPro.Views.Dealersh.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,7 +41,11 @@ public class DealershController(IDealershService dealershService) : ControllerBa
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] DealershUpdateRequest dealershRequest)
     {
-        await _dealershService.UpdateAsync(dealershRequest);
+        var response = await _dealershService.UpdateAsync(id, dealershRequest);
+
+        if (response is false)
+            return NotFound();
+
         return NoContent();
     }
 

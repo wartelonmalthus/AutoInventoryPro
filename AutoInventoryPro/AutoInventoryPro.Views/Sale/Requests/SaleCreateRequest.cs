@@ -21,6 +21,4 @@ public class SaleCreateRequest
     [Range(0.01, double.MaxValue, ErrorMessage = "O preço de venda deve ser maior que zero.")]
     public Decimal SalePrice { get; set; }
 
-    [Required(ErrorMessage = "O campo SaleProtocol é obrigatório.")]
-    public Guid SaleProtocol { get; set; }
 }

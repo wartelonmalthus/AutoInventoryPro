@@ -8,6 +8,6 @@ public interface IFabricatorService
     Task<IEnumerable<FabricatorResponse>> GetAllAsync();
     Task<FabricatorResponse> GetByIdAsync(int id);
     Task AddAsync(FabricatorCreateRequest request);
-    Task UpdateAsync(FabricatorUpdateRequest entity);
+    Task<bool> UpdateAsync(int id, FabricatorUpdateRequest request);
     Task DeleteAsync(int id);
 }

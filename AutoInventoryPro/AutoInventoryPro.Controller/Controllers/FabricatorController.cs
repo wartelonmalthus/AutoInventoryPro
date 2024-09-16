@@ -39,7 +39,11 @@ public class FabricatorController(IFabricatorService fabricatorService) : Contro
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] FabricatorUpdateRequest fabricatorRequest)
     {
-        await _fabricatorService.UpdateAsync(fabricatorRequest);
+        var response = await _fabricatorService.UpdateAsync(id, fabricatorRequest);
+
+        if (response is false)
+            return NotFound();
+
         return NoContent();
     }
 

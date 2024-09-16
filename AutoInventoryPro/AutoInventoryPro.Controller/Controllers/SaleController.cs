@@ -39,7 +39,11 @@ public class SaleController(ISaleService saleService) : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] SaleUpdateRequest saleRequest)
     {
-        await _saleService.UpdateAsync(saleRequest);
+        var response = await _saleService.UpdateAsync(id, saleRequest);
+
+        if (response is false)
+            return NotFound();
+
         return NoContent();
     }
 

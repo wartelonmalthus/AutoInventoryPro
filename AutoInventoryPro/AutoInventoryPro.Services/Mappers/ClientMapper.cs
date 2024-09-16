@@ -8,6 +8,7 @@ public static class ClientMapper
 {
     public static ClientResponse ToResponse(this Client client) => new()
     {
+        IdClient = client.Id,
         CPF = client.CPF,
         Name = client.Name,
         Phone= client.Phone
@@ -19,5 +20,8 @@ public static class ClientMapper
         Name = request.Name,
         Phone = request.Phone
     };
+
+    public static IEnumerable<ClientResponse> ToResponse(this IEnumerable<Client> clients) => clients.Select(Client => Client.ToResponse());
+
 
 }

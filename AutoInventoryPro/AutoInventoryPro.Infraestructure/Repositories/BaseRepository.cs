@@ -1,7 +1,6 @@
 ﻿using AutoInventoryPro.Infraestructure.Context;
 using AutoInventoryPro.Infraestructure.Interfaces;
 using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Models.Interfaces.Repositorires;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoInventoryPro.Infraestructure.Repositories;
@@ -34,8 +33,8 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         }
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
-
+    public virtual async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.Where(x => x.SoftDelete == false).ToListAsync();
+    public virtual async Task<T> GetByIdDetailAsync(int id) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
     public async Task<T> GetByIdAsync(int id) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task UpdateAsync(T entity)

@@ -13,18 +13,19 @@ public static class SaleMapper
         IdDealersh = request.IdDealersh,
         IdVehicle = request.IdVehicle,
         SalePrice = request.SalePrice,
-        SaleProtocol = request.SaleProtocol    
+        SaleProtocol = Guid.NewGuid().ToString("N").Substring(0, 20)
     };
 
     public static SaleResponse ToResponse(this Sale sale) => new()
     {
-        Client = sale.Client.ToResponse(),
+        IdSale = sale.Id,
         SaleProtocol= sale.SaleProtocol,
         SalePrice= sale.SalePrice,
         DataSale= sale.DataSale,
-        Dealersh = sale.Dealersh.ToResponse(),
-        Vehicle = sale.Vehicle.ToResponse()    
+        Client = sale.Client != null ? sale.Client.ToResponse() : null,
+        Dealersh = sale.Client != null ? sale.Dealersh.ToResponse() : null,
+        Vehicle = sale.Client != null ? sale.Vehicle.ToResponse() : null    
     };
 
-    public static IEnumerable<SaleResponse>ToResponse(this IEnumerable<Sale> sales) => sales.Select(sales => sales.ToResponse());
+    public static IEnumerable<SaleResponse>ToResponse(this IEnumerable<Sale> sales) => sales.Select(sale => sale.ToResponse());
 }

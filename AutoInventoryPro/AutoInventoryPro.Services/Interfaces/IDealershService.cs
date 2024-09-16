@@ -8,7 +8,7 @@ public interface IDealershService
     Task<IEnumerable<DealershResponse>> GetAllAsync();
     Task<DealershResponse> GetByIdAsync(int id);
     Task AddAsync(DealershCreateRequest request);
-    Task UpdateAsync(DealershUpdateRequest entity);
+    Task<bool> UpdateAsync(int id, DealershUpdateRequest request);
     Task DeleteAsync(int id);
 
 }

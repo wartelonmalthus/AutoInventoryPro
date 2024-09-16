@@ -21,13 +21,14 @@ public static class VehicleMapper
 
     public static VehicleResponse ToResponse(this Vehicle vehicle) => new() 
     {
+        IdVehicle = vehicle.Id,
         Description = vehicle.Description,
         VehicleModel = vehicle.VehicleModel,
         YearManufacture = vehicle.YearManufacture,
         Price = vehicle.Price,
         VehicleType = vehicle.VehicleType,
-        FabricatorResponse = vehicle.Fabricator.ToResponse()
+        FabricatorInfo = vehicle.Fabricator != null ? vehicle.Fabricator.ToInfo() : null
     };
 
-    public static IEnumerable<VehicleResponse> ToResponse(this  IEnumerable<Vehicle> vehicles) => vehicles.Select(vehicles => vehicles.ToResponse());
+    public static IEnumerable<VehicleResponse> ToResponse(this  IEnumerable<Vehicle> vehicles) => vehicles.Select(vehicle => vehicle.ToResponse());
 }

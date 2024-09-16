@@ -1,5 +1,6 @@
 ﻿using AutoInventoryPro.Infraestructure.Interfaces;
 using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Services.Mappers;
 using AutoInventoryPro.Views.Fabricator.Requests;
 using AutoInventoryPro.Views.Fabricator.Responses;
 
@@ -9,28 +10,44 @@ public class FabricatorService(IFabricatorRepository fabricatorRepository) : IFa
 {
     private readonly IFabricatorRepository _fabricatorRepository = fabricatorRepository;
 
-    public Task AddAsync(FabricatorCreateRequest request)
+    public async Task AddAsync(FabricatorCreateRequest request)
     {
-        throw new NotImplementedException();
+        var fabricator = request.ToEntity();
+        await _fabricatorRepository.AddAsync(fabricator);
     }
 
-    public Task DeleteAsync(int id)
+    public Task DeleteAsync(int id) => _fabricatorRepository.DeleteAsync(id);
+
+    public async Task<IEnumerable<FabricatorResponse>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var fabricators = await _fabricatorRepository.GetAllAsync();
+        return fabricators.ToResponse();
     }
 
-    public Task<IEnumerable<FabricatorResponse>> GetAllAsync()
+    public async Task<FabricatorResponse> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var fabricator = await _fabricatorRepository.GetByIdDetailAsync(id); 
+        return fabricator.ToResponse();
     }
 
-    public Task<FabricatorResponse> GetByIdAsync(int id)
+    public async Task<bool> UpdateAsync(int id, FabricatorUpdateRequest request)
     {
-        throw new NotImplementedException();
-    }
+        var fabricator = await _fabricatorRepository.GetByIdAsync(id);
 
-    public Task UpdateAsync(FabricatorUpdateRequest entity)
-    {
-        throw new NotImplementedException();
+        if (fabricator is null)
+            return false;
+
+        if (request.WebSite is not null) fabricator.WebSite = request.WebSite;
+
+        if (request.YearFoundation is not null) fabricator.YearFoundation = (int)request.YearFoundation;
+
+        if (request.Country is not null) fabricator.Country = request.Country;
+
+        if(request.Name is not null) fabricator.Name = request.Name;
+
+        fabricator.UpdatedAt= DateTime.Now;
+
+        await _fabricatorRepository.UpdateAsync(fabricator);
+        return true;
     }
 }

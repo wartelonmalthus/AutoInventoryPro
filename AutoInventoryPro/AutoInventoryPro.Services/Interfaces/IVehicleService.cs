@@ -8,6 +8,6 @@ public interface IVehicleService
     Task<IEnumerable<VehicleResponse>> GetAllAsync();
     Task<VehicleResponse> GetByIdAsync(int id);
     Task AddAsync(VehicleCreateRequest request);
-    Task UpdateAsync(VehicleUpdateRequest entity);
+    Task<bool> UpdateAsync(int id, VehicleUpdateRequest request);
     Task DeleteAsync(int id);
 }

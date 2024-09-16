@@ -21,10 +21,10 @@ public class VehicleController(IVehicleService vehicleService) : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var vehicle = await _vehicleService.GetByIdAsync(id);
-        if (vehicle == null)
-        {
+
+        if (vehicle is null)
             return NotFound();
-        }
+        
         return Ok(vehicle);
     }
     [HttpPost]
@@ -38,7 +38,11 @@ public class VehicleController(IVehicleService vehicleService) : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody]VehicleUpdateRequest vehicleRequest)
     {
-        await _vehicleService.UpdateAsync(vehicleRequest);
+        var response = await _vehicleService.UpdateAsync(id, vehicleRequest);
+
+        if (response is false)
+            return NotFound();
+
         return NoContent();
     }
 

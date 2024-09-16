@@ -25,7 +25,7 @@ public class Sale : BaseEntity
     /// <summary>
     /// Número de protocolo único para a venda.
     /// </summary>
-    public Guid SaleProtocol { get; set; }
+    public string SaleProtocol { get; set; }
 
     // Relacionamentos EF
     public Vehicle Vehicle { get; set; } 

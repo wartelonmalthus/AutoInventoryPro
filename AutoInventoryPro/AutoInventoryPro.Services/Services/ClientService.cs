@@ -1,36 +1,52 @@
-﻿using AutoInventoryPro.Infraestructure.Repositories;
+﻿using AutoInventoryPro.Infraestructure.Interfaces;
+using AutoInventoryPro.Models.Entities;
 using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Services.Mappers;
 using AutoInventoryPro.Views.Client.Requests;
 using AutoInventoryPro.Views.Client.Responses;
 
 namespace AutoInventoryPro.Services.Services;
 
-public class ClientService(ClientRepository clientRepository) : IClientService
+public class ClientService(IClientRepository clientRepository) : IClientService
 {
-    private readonly ClientRepository _clientRepository = clientRepository;
+    private readonly IClientRepository _clientRepository = clientRepository;
 
-    public Task AddAsync(ClientCreateRequest request)
+    public async Task AddAsync(ClientCreateRequest request)
     {
-        throw new NotImplementedException();
+        var client = request.ToEntity();
+        await _clientRepository.AddAsync(client);
     }
 
-    public Task DeleteAsync(int id)
+    public Task DeleteAsync(int id) => _clientRepository.DeleteAsync(id);
+
+    public async Task<IEnumerable<ClientResponse>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var clients = await _clientRepository.GetAllAsync();
+        return clients.ToResponse();
     }
 
-    public Task<IEnumerable<ClientResponse>> GetAllAsync()
+    public async Task<ClientResponse> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var client = await _clientRepository.GetByIdDetailAsync(id);
+        return client.ToResponse();
     }
 
-    public Task<ClientResponse> GetByIdAsync(int id)
+    public async Task<bool> UpdateAsync(int id, ClientUpdateRequest request)
     {
-        throw new NotImplementedException();
-    }
+        var client = await _clientRepository.GetByIdAsync(id);
 
-    public Task UpdateAsync(ClientUpdateRequest entity)
-    {
-        throw new NotImplementedException();
+        if (client is null)
+            return false;
+
+        if (request.CPF is not null) client.CPF = request.CPF;
+
+        if (request.Name is not null) client.Name = request.Name;
+
+        if (request.Phone is not null) client.Phone = request.Phone;
+
+        client.UpdatedAt = DateTime.Now;
+
+        await _clientRepository.UpdateAsync(client);
+        return true;
     }
 }

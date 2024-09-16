@@ -39,7 +39,11 @@ public class UserController(IUserService userService) : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] UserUpdateRequest userRequest)
     {
-        await _userService.UpdateAsync(userRequest);
+        var response = await _userService.UpdateAsync(id,userRequest);
+
+        if (response is false)
+            return NotFound();
+
         return NoContent();
     }
 

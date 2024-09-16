@@ -1,5 +1,7 @@
 ﻿using AutoInventoryPro.Infraestructure.Interfaces;
+using AutoInventoryPro.Models.Enums;
 using AutoInventoryPro.Services.Interfaces;
+using AutoInventoryPro.Services.Mappers;
 using AutoInventoryPro.Views.User.Requests;
 using AutoInventoryPro.Views.User.Responses;
 
@@ -9,28 +11,43 @@ public class UserService(IUserRepository userRepository) : IUserService
 {
     private readonly IUserRepository _userRepository = userRepository;
 
-    public Task AddAsync(UserCreateRequest request)
+    public async Task AddAsync(UserCreateRequest request)
     {
-        throw new NotImplementedException();
+        var user = request.ToEntity();
+        await _userRepository.AddAsync(user);
     }
 
-    public Task DeleteAsync(int id)
+    public Task DeleteAsync(int id) => _userRepository.DeleteAsync(id);
+
+    public async Task<IEnumerable<UserResponse>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var users = await _userRepository.GetAllAsync();
+        return users.ToResponse();
     }
 
-    public Task<IEnumerable<UserResponse>> GetAllAsync()
+    public async Task<UserResponse> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+       var user = await _userRepository.GetByIdAsync(id);
+       return user.ToResponse();
     }
 
-    public Task<UserResponse> GetByIdAsync(int id)
+    public async Task<bool> UpdateAsync(int id, UserUpdateRequest entity)
     {
-        throw new NotImplementedException();
-    }
+        var user = await _userRepository.GetByIdAsync(id);
 
-    public Task UpdateAsync(UserUpdateRequest entity)
-    {
-        throw new NotImplementedException();
+        if (user is null)
+            return false;
+
+        if(entity.UserRole is not null) user.UserRole = (EUserRoles)entity.UserRole;
+
+        if(entity.Name is not null) user.Name = entity.Name;
+
+        if(entity.Email is not null) user.Email = entity.Email;
+
+        user.UpdatedAt= DateTime.Now;
+
+        await _userRepository.UpdateAsync(user);      
+        return true;
+
     }
 }

@@ -4,6 +4,7 @@ namespace AutoInventoryPro.Views.Dealersh.Responses;
 
 public class DealershResponse
 {
+    public int IdDealersh {  get; set; }
     public string Name { get; set; }
     public string Address { get; set; }
     public string City { get; set; }

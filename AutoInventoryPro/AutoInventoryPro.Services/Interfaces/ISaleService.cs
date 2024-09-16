@@ -8,7 +8,7 @@ public interface ISaleService
     Task<IEnumerable<SaleResponse>> GetAllAsync();
     Task<SaleResponse> GetByIdAsync(int id);
     Task AddAsync(SaleCreateRequest request);
-    Task UpdateAsync(SaleUpdateRequest entity);
+    Task<bool> UpdateAsync(int id, SaleUpdateRequest request);
     Task DeleteAsync(int id);
 
 }
