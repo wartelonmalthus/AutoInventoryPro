@@ -72,7 +72,8 @@ async function loadSale() {
 
             await loadDealersh();
             await loadVehicles();
-            await loadClients();        
+            await loadClients();  
+            await loadUserInfo();      
 
         } else {
             alert("Erro ao buscar os dados da API.");
@@ -227,5 +228,17 @@ const loadClients = async () => {
         console.error("Erro ao carregar Clientes:", error);
     }
 };
+
+function loadUserInfo() {
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo) {
+        const userData = JSON.parse(userInfo);
+        const userInfoDiv = document.getElementById('user-info'); 
+        userInfoDiv.innerHTML = `<p style="margin: 0; font-size: 15px">${userData.name}</p> <p style="margin-bottom:3px; font-size: 10px">${userData.userRole}</p>`;
+    } else {
+        console.error('Nenhuma informação de usuário encontrada.');
+    }
+  }
+  
 
 document.addEventListener("DOMContentLoaded", loadSale);

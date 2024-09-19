@@ -81,6 +81,8 @@ async function loadDealers() {
                 });
             });
 
+            await loadUserInfo();
+
         } else {
             alert("Erro ao buscar os dados da API.");
         }
@@ -184,5 +186,16 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', async func
         }
     }
 });
+
+function loadUserInfo() {
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo) {
+        const userData = JSON.parse(userInfo);
+        const userInfoDiv = document.getElementById('user-info'); 
+        userInfoDiv.innerHTML = `<p style="margin: 0; font-size: 15px">${userData.name}</p> <p style="margin-bottom:3px; font-size: 10px">${userData.userRole}</p>`;
+    } else {
+        console.error('Nenhuma informação de usuário encontrada.');
+    }
+  }
 
 document.addEventListener("DOMContentLoaded", loadDealers);
