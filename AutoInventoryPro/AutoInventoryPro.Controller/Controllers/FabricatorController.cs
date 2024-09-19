@@ -32,7 +32,6 @@ public class FabricatorController(IFabricatorService fabricatorService) : Contro
     public async Task<IActionResult> Create([FromBody] FabricatorCreateRequest fabricatorRequest)
     {
         await _fabricatorService.AddAsync(fabricatorRequest);
-        //return CreatedAtAction(nameof(GetById), new { id = fabricator.Id }, fabricator);
         return Ok();
     }
 

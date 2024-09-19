@@ -32,7 +32,6 @@ public class UserController(IUserService userService) : ControllerBase
     public async Task<IActionResult> Create([FromBody] UserCreateRequest userRequest)
     {
         await _userService.AddAsync(userRequest);
-        //return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         return Ok();
     }
 

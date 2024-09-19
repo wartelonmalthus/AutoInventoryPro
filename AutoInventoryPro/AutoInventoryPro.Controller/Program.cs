@@ -31,13 +31,27 @@ internal class Program
         builder.Services.AddScoped<ISaleService, SaleService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IVehicleService, VehicleService>();
+        builder.Services.AddScoped<IAuthService,  AuthService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAny",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+        });
+
         var app = builder.Build();
+
+        app.UseCors("AllowAny");
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
@@ -45,7 +59,7 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        
         app.UseHttpsRedirection();
 
         app.UseAuthorization();

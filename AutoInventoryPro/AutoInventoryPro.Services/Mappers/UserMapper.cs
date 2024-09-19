@@ -11,7 +11,7 @@ public static class UserMapper
         IdUser = user.Id,
         Email = user.Email,
         Name = user.Name,
-        UserRole = user.UserRole
+        UserRole = user.UserRole.ToString(),
         
     };
 

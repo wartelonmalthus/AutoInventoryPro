@@ -6,14 +6,30 @@ using AutoInventoryPro.Views.Sale.Responses;
 
 namespace AutoInventoryPro.Services.Services;
 
-public class SaleService(ISaleRepository saleRepository) : ISaleService
+public class SaleService(ISaleRepository saleRepository, IDealershRepository dealershRepository, IClientRepository clientRepository, IVehicleRepository vehicleRepository) : ISaleService
 {
     private readonly ISaleRepository _saleRepository = saleRepository;
+    private readonly IDealershRepository _dealershRepository = dealershRepository;
+    private readonly IClientRepository _clientRepository = clientRepository;
+    private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
 
-    public async Task AddAsync(SaleCreateRequest request)
+    public async Task<bool> AddAsync(SaleCreateRequest request)
     {
+        if (!(await _clientRepository.VerifyExist(request.IdClient)))
+            return false;
+
+        if (!(await _dealershRepository.VerifyExist(request.IdDealersh)))
+            return false;
+
+        if (!(await _vehicleRepository.VerifyExist(request.IdVehicle)))
+            return false;
+
+
         var sale = request.ToEntity();
+
         await _saleRepository.AddAsync(sale);
+        return true;
+
     }
 
     public Task DeleteAsync(int id) => _saleRepository.DeleteAsync(id);

@@ -10,7 +10,6 @@ public class FabricatorUpdateRequest
     public string? Country { get; set; }
     [Range(1800, 2024, ErrorMessage = "O ano de fundação deve estar entre 1800 e 2024.")]
     public int? YearFoundation { get; set; }
-    [Url(ErrorMessage = "O site deve ser uma URL válida.")]
     [StringLength(255, ErrorMessage = "O site deve ter no máximo 255 caracteres.")]
     public string? WebSite { get; set; }
 }

@@ -9,7 +9,7 @@ public class VehicleResponse
     public string VehicleModel { get; set; }
     public int YearManufacture { get; set; }
     public decimal Price { get; set; }
-    public EVehicleType VehicleType { get; set; }
+    public string VehicleType { get; set; }
     public string? Description { get; set; }
     public FabricatorInfo? FabricatorInfo { get; set; }
 }

@@ -22,6 +22,10 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         await _dbSet.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
+   public async Task<bool> VerifyExist(int id)
+    {
+        return await _dbSet.AnyAsync(x => x.Id == id);
+    }
 
     public async Task DeleteAsync(int id)
     {

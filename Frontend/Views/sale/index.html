@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoInventoryPro</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-menu"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="#">AutoInventoryPro</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="../user/index.html" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../sale/index.html" class="sidebar-link">
+                        <i class="lni lni-invest-monitor"></i>
+                        <span>Vendas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../vehicle/index.html" class="sidebar-link">
+                        <i class="lni lni-car-alt"></i>
+                        <span>Veículos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../Client/index.html" class="sidebar-link">
+                        <i class="lni lni-customer"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../Fabricator/index.html" class="sidebar-link">
+                        <i class="lni lni-construction"></i>
+                        <span>Fabricantes</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../Dealersh/index.html" class="sidebar-link">
+                        <i class="lni lni-network"></i>
+                        <span>Concecionárias</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="../../app.html" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="main p-3">
+            <div class="text-center title-table">
+                <h1>
+                    Vendas
+                </h1>
+            </div>
+            <div class="container mt-5">        
+                <div class="d-flex justify-content-between mb-3">
+                    <h5>Listagem de Vendas</h5> 
+                    <button class="btn btn-primary" id="addSaleBtn" data-bs-toggle="modal" data-bs-target="#addModal">
+                        Adicionar Venda  <i class="lni lni-circle-plus"></i>
+                    </button>
+                </div>
+                <br>
+                <table class="table table-striped" id="SaleTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Data da venda</th>
+                            <th scope="col">Preço da venda</th>
+                            <th scope="col">protocolo</th>
+                            <th scope="col">Ações</th>   
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div> 
+            
+            
+            <!-- Modal de Adição -->
+            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="padding: 0.75rem;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addModalLabel">Adicionar Nova Venda</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addForm">
+                                <div class="mb-3">
+                                    <label for="dealershSelect" class="form-label">Concessionária</label>
+                                    <select class="form-select" id="dealershSelect" required>
+                                    <option value="">Selecione a Concessionária</option>
+                                    </select>
+                                </div>
+                            
+                                <div class="mb-3">
+                                    <label for="vehicleSelect" class="form-label">Veículo</label>
+                                    <select class="form-select" id="vehicleSelect" required>
+                                    <option value="">Selecione o Veículo</option>
+                                    </select>
+                                </div>
+                            
+                                <div class="mb-3">
+                                    <label for="clientSelect" class="form-label">Cliente</label>
+                                    <select class="form-select" id="clientSelect" required>
+                                    <option value="">Selecione o Cliente</option>
+                                    </select>
+                                </div>
+                            
+                                <div class="mb-3">
+                                    <label for="addSalePrice" class="form-label">Preço da Venda</label>
+                                    <input type="number" step="0.01" class="form-control" id="addSalePrice" required>
+                                </div>
+                            
+                                <div class="mb-3">
+                                    <label for="addSaleDate" class="form-label">Data da Venda</label>
+                                    <input type="date" class="form-control" id="addSaleDate" required>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Adicionar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal de Edição -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar Venda</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editForm" data-id="">
+                            <div class="mb-3">
+                                <label for="dealershSelect" class="form-label">Concessionária</label>
+                                <select class="form-select" id="dealershSelect" required>
+                                <option value="">Selecione a Concessionária</option>
+                                </select>
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label for="vehicleSelect" class="form-label">Veículo</label>
+                                <select class="form-select" id="vehicleSelect" required>
+                                <option value="">Selecione o Veículo</option>
+                                </select>
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label for="clientSelect" class="form-label">Cliente</label>
+                                <select class="form-select" id="clientSelect" required>
+                                <option value="">Selecione o Cliente</option>
+                                </select>
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label for="editSalePrice" class="form-label">Preço da Venda</label>
+                                <input type="number" step="0.01" class="form-control" id="editSalePrice" required>
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label for="editSaleDate" class="form-label">Data da Venda</label>
+                                <input type="date" class="form-control" id="editSaleDate" required>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+                  
+            <!-- Modal de Exclusão -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Excluir Venda</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Tem certeza que deseja excluir esta Venda?
+                            <strong id="deleteSaleName"></strong>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="sale.js"></script>
+</body>
+</html>

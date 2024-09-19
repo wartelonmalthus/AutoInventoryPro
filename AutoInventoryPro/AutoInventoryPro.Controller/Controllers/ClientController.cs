@@ -33,7 +33,6 @@ public class ClientController(IClientService clientService) : ControllerBase
     public async Task<IActionResult> Create([FromBody] ClientCreateRequest clientRequest)
     {
         await _clientService.AddAsync(clientRequest);
-        //return CreatedAtAction(nameof(GetById), new { id = client.Id }, client);
         return Ok();
     }
 

@@ -26,7 +26,7 @@ public static class VehicleMapper
         VehicleModel = vehicle.VehicleModel,
         YearManufacture = vehicle.YearManufacture,
         Price = vehicle.Price,
-        VehicleType = vehicle.VehicleType,
+        VehicleType = vehicle.VehicleType.ToString(),
         FabricatorInfo = vehicle.Fabricator != null ? vehicle.Fabricator.ToInfo() : null
     };
 

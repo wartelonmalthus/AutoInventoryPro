@@ -4,4 +4,5 @@ namespace AutoInventoryPro.Infraestructure.Interfaces;
 
 public interface IVehicleRepository : IBaseRepository<Vehicle>
 {
+
 }

@@ -31,8 +31,11 @@ public class SaleController(ISaleService saleService) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] SaleCreateRequest saleRequest)
     {
-        await _saleService.AddAsync(saleRequest);
-        //return CreatedAtAction(nameof(GetById), new { id = sale.Id }, sale);
+        var response = await _saleService.AddAsync(saleRequest);
+
+        if (response is false)
+            return NotFound();
+
         return Ok();
     }
 

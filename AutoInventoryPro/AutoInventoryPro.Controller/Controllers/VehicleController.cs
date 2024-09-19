@@ -31,7 +31,6 @@ public class VehicleController(IVehicleService vehicleService) : ControllerBase
     public async Task<IActionResult> Create([FromBody] VehicleCreateRequest vehicleRequest)
     {
         await _vehicleService.AddAsync(vehicleRequest);
-        //return CreatedAtAction(nameof(GetById), new { id = vehicle.Id }, vehicle);
         return Ok();
     }
 

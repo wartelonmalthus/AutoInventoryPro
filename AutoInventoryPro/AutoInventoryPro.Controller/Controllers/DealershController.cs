@@ -34,7 +34,6 @@ public class DealershController(IDealershService dealershService) : ControllerBa
     public async Task<IActionResult> Create([FromBody] DealershCreateRequest dealersh)
     {
         await _dealershService.AddAsync(dealersh);
-        //return CreatedAtAction(nameof(GetById), new { id = dealersh.Id }, dealersh);
         return Ok();
     }
 

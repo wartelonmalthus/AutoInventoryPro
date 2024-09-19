@@ -13,4 +13,5 @@ public class VehicleRepository(AutoInventoryProDbContext context) : BaseReposito
     {
         return await _context.Vehicles.Include(v => v.Fabricator).SingleOrDefaultAsync(f => f.Id == id);
     }
+
 }

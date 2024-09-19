@@ -12,5 +12,4 @@ public class DealershRepository(AutoInventoryProDbContext context) : BaseReposit
     {
         return await _context.Dealershes.Include(d => d.Sales).SingleOrDefaultAsync(d => d.Id == id);
     }
-
 }

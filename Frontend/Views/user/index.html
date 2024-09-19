@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoInventoryPro</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-menu"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="#">AutoInventoryPro</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="../user/index.html" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../sale/index.html" class="sidebar-link">
+                        <i class="lni lni-invest-monitor"></i>
+                        <span>Vendas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../vehicle/index.html" class="sidebar-link">
+                        <i class="lni lni-car-alt"></i>
+                        <span>Veículos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../Client/index.html" class="sidebar-link">
+                        <i class="lni lni-customer"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../Fabricator/index.html" class="sidebar-link">
+                        <i class="lni lni-construction"></i>
+                        <span>Fabricantes</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../Dealersh/index.html" class="sidebar-link">
+                        <i class="lni lni-network"></i>
+                        <span>Concecionárias</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="../../app.html" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="main p-3">
+            <div class="text-center title-table">
+                <h1>
+                    Usuários
+                </h1>
+            </div>
+            <div class="container mt-5">        
+                <div class="d-flex justify-content-between mb-3">
+                    <h5>Listagem de Usuários</h5> 
+                    <button class="btn btn-primary" id="addFabricatorBtn" data-bs-toggle="modal" data-bs-target="#addModal">
+                        Adicionar Usuário  <i class="lni lni-circle-plus"></i>
+                    </button>
+                </div>
+                <br>
+                <table class="table table-striped" id="userTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Nivel de acesso</th>
+                            <th scope="col">Ações</th>   
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                 <!-- Modal de Adição -->
+                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="padding: 0.75rem;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">Adicionar Novo Usuario</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addForm">
+                                    <div class="mb-3">
+                                        <label for="addName" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="addName" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="addPassword" class="form-label">Senha</label>
+                                        <input type="password" class="form-control" id="addPassword" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="addCountry" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="addCountry" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="addAccessLevel" class="form-label">Nível de Acesso</label>
+                                        <select class="form-select" id="addAccessLevel" required>
+                                          <option value="">Selecione o nível de acesso</option>
+                                          <option value="0">Administrador</option>
+                                          <option value="1">Vendedor</option>
+                                          <option value="2">Gerente</option>
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de Edição -->
+                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Editar Usuário</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm" data-id="">
+                                    <div class="mb-2">
+                                        <label for="editName" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="editName">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="editEmail" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="editEmail">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editAccessLevel" class="form-label">Nível de Acesso</label>
+                                        <select class="form-select" id="editAccessLevel" >
+                                          <option value="">Selecione o nível de acesso</option>
+                                          <option value="0">Administrador</option>
+                                          <option value="1">Vendedor</option>
+                                          <option value="2">Gerente</option>
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de Exclusão -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Excluir Usuário</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Tem certeza que deseja excluir este Usuário?
+                                <strong id="deleteUserName"></strong>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="user.js"></script>
+</body>
+</html>
