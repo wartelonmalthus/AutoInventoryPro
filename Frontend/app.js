@@ -4,7 +4,6 @@ let form  = document.querySelector("#loginForm");
 
 form.addEventListener('submit', async function(event) {
     event.preventDefault(); 
-   
     let data = {
         email: email.value,
         password: senha.value
