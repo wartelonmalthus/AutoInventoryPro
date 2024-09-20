@@ -21,6 +21,8 @@ public static class ClientMapper
         Phone = request.Phone
     };
 
+
+
     public static IEnumerable<ClientResponse> ToResponse(this IEnumerable<Client> clients) => clients.Select(Client => Client.ToResponse());
 
 

@@ -26,7 +26,7 @@ public class FabricatorService(IFabricatorRepository fabricatorRepository) : IFa
 
     public async Task<FabricatorResponse> GetByIdAsync(int id)
     {
-        var fabricator = await _fabricatorRepository.GetByIdDetailAsync(id); 
+        var fabricator = await _fabricatorRepository.GetByIdAsync(id); 
         return fabricator.ToResponse();
     }
 

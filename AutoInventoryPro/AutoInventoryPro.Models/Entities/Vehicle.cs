@@ -31,8 +31,8 @@ public class Vehicle : BaseEntity
 
 
     // Relacionamentos EF
-    public Fabricator Fabricator { get; set; }
-    public HashSet<Sale> Sales { get; set; } = new HashSet<Sale>();
+    public virtual Fabricator Fabricator { get; set; }
+    public virtual HashSet<Sale> Sales { get; set; } = new HashSet<Sale>();
 
 
 }

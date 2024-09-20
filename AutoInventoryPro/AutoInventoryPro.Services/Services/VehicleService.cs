@@ -27,7 +27,7 @@ public class VehicleService(IVehicleRepository vehicleRepository) : IVehicleServ
 
     public async Task<VehicleResponse> GetByIdAsync(int id)
     {
-        var vehicle = await _vehicleRepository.GetByIdDetailAsync(id);
+        var vehicle = await _vehicleRepository.GetByIdAsync(id);
         return vehicle.ToResponse();
     }
 

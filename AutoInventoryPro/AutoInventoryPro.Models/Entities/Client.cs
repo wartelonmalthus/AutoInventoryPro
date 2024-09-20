@@ -16,6 +16,6 @@ public class Client : BaseEntity
     public string Phone { get; set; }
 
     // Relacionamento EF
-    public HashSet<Sale> Sales { get; set; } = new HashSet<Sale>();
+    public virtual HashSet<Sale> Sales { get; set; } = new HashSet<Sale>();
 
 }

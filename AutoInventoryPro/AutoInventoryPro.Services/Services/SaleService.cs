@@ -42,7 +42,7 @@ public class SaleService(ISaleRepository saleRepository, IDealershRepository dea
 
     public async Task<SaleResponse> GetByIdAsync(int id)
     {
-        var sale = await _saleRepository.GetByIdDetailAsync(id);
+        var sale = await _saleRepository.GetByIdAsync(id);
         return sale.ToResponse();
     }
 

@@ -26,7 +26,7 @@ public class DealershService(IDealershRepository dealershRepository) : IDealersh
 
     public async Task<DealershResponse> GetByIdAsync(int id)
     {
-        var dealersh = await _dealershRepository.GetByIdDetailAsync(id);
+        var dealersh = await _dealershRepository.GetByIdAsync(id);
         return dealersh.ToResponse();
     }
 

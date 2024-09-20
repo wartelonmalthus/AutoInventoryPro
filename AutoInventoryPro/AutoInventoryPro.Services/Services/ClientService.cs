@@ -27,7 +27,8 @@ public class ClientService(IClientRepository clientRepository) : IClientService
 
     public async Task<ClientResponse> GetByIdAsync(int id)
     {
-        var client = await _clientRepository.GetByIdDetailAsync(id);
+        var client = await _clientRepository.GetByIdAsync(id);
+   
         return client.ToResponse();
     }
 

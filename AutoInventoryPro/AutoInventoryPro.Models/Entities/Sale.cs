@@ -28,8 +28,8 @@ public class Sale : BaseEntity
     public string SaleProtocol { get; set; }
 
     // Relacionamentos EF
-    public Vehicle Vehicle { get; set; } 
-    public Dealersh Dealersh { get; set; }
-    public Client Client { get; set; }
+    public virtual Vehicle Vehicle { get; set; } 
+    public virtual Dealersh Dealersh { get; set; }
+    public virtual Client Client { get; set; }
 
 }

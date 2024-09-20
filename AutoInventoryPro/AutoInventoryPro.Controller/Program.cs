@@ -12,7 +12,7 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddDbContext<AutoInventoryProDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("AutoInventoryDatabase"))
+            options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("AutoInventoryDatabase"))
         );
 
         //repository
