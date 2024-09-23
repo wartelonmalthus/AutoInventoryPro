@@ -1,34 +1,54 @@
 ﻿using AutoInventoryPro.Infraestructure.Interfaces;
+using AutoInventoryPro.Infraestructure.Repositories;
+using AutoInventoryPro.Models.Entities;
 using AutoInventoryPro.Models.Enums;
+using AutoInventoryPro.Services.Cache;
 using AutoInventoryPro.Services.Interfaces;
 using AutoInventoryPro.Services.Mappers;
 using AutoInventoryPro.Views.User.Requests;
 using AutoInventoryPro.Views.User.Responses;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AutoInventoryPro.Services.Services;
 
-public class UserService(IUserRepository userRepository) : IUserService
+public class UserService(IUserRepository userRepository, IMemoryCache memoryCache, CacheOptionsProvider cacheOptionsProvider) : BaseService(memoryCache), IUserService
 {
     private readonly IUserRepository _userRepository = userRepository;
+    private readonly CacheOptionsProvider _cacheOptionsProvider = cacheOptionsProvider;
 
     public async Task AddAsync(UserCreateRequest request)
     {
-        var user = request.ToEntity();
-        await _userRepository.AddAsync(user);
+        ClearCache();
+        await _userRepository.AddAsync(request.ToEntity()); 
     }
 
-    public Task DeleteAsync(int id) => _userRepository.DeleteAsync(id);
+    public async Task DeleteAsync(int id) 
+    {
+        ClearCache();
+        await _userRepository.DeleteAsync(id); 
+    } 
 
     public async Task<IEnumerable<UserResponse>> GetAllAsync()
     {
-        var users = await _userRepository.GetAllAsync();
+        if (!_memoryCache.TryGetValue("users", out IEnumerable<User> users))
+        {
+            users = await _userRepository.GetAllAsync();
+            _memoryCache.Set("users", users, _cacheOptionsProvider.GetCacheOptions());
+            AddCacheKey("sales");
+        }
+
         return users.ToResponse();
     }
 
     public async Task<UserResponse> GetByIdAsync(int id)
     {
-       var user = await _userRepository.GetByIdAsync(id);
-       return user.ToResponse();
+        if (!_memoryCache.TryGetValue($"userId:{id}", out User user))
+        {
+            user = await _userRepository.GetByIdAsync(id);
+            _memoryCache.Set($"userId:{id}", user, _cacheOptionsProvider.GetCacheOptions());
+            AddCacheKey($"userId:{id}");
+        }
+        return user.ToResponse();
     }
 
     public async Task<bool> UpdateAsync(int id, UserUpdateRequest entity)
@@ -46,7 +66,9 @@ public class UserService(IUserRepository userRepository) : IUserService
 
         user.UpdatedAt= DateTime.Now;
 
-        await _userRepository.UpdateAsync(user);      
+        ClearCache();
+        await _userRepository.UpdateAsync(user);    
+        
         return true;
 
     }

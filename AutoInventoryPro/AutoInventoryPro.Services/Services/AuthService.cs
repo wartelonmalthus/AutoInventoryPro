@@ -1,4 +1,5 @@
 ﻿using AutoInventoryPro.Infraestructure.Interfaces;
+using AutoInventoryPro.Models.Entities;
 using AutoInventoryPro.Services.Interfaces;
 using AutoInventoryPro.Services.Mappers;
 using AutoInventoryPro.Views.Auth.Login;
@@ -12,7 +13,7 @@ public class AuthService(IUserRepository userRepository) : IAuthService
 
     public async Task<UserResponse> Login(LoginRequest request)
     {
-       var user = await _userRepository.Login(request.Email, request.Password);
+        User user = await _userRepository.Login(request.Email, request.Password);
 
         if (user == null)
             return null;

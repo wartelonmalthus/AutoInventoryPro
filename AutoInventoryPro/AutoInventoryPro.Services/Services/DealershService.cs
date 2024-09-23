@@ -1,38 +1,59 @@
 ﻿using AutoInventoryPro.Infraestructure.Interfaces;
+using AutoInventoryPro.Models.Entities;
+using AutoInventoryPro.Services.Cache;
 using AutoInventoryPro.Services.Interfaces;
 using AutoInventoryPro.Services.Mappers;
 using AutoInventoryPro.Views.Dealersh.Requests;
 using AutoInventoryPro.Views.Dealersh.Responses;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AutoInventoryPro.Services.Services;
 
-public class DealershService(IDealershRepository dealershRepository) : IDealershService
+public class DealershService(IDealershRepository dealershRepository, IMemoryCache memoryCache, CacheOptionsProvider cacheOptionsProvider) : BaseService(memoryCache), IDealershService
 {
     private readonly IDealershRepository _dealershRepository = dealershRepository;
+    private readonly CacheOptionsProvider _cacheOptionsProvider = cacheOptionsProvider;
 
     public async  Task AddAsync(DealershCreateRequest request)
     {
-        var dealersh = request.ToEntity();
-        await _dealershRepository.AddAsync(dealersh);
+        ClearCache();
+        await _dealershRepository.AddAsync(request.ToEntity());
+       
     }
 
-    public Task DeleteAsync(int id) => _dealershRepository.DeleteAsync(id);
+    public async Task DeleteAsync(int id)
+    {
+        ClearCache();
+        await _dealershRepository.DeleteAsync(id);
+       
+    } 
 
     public async Task<IEnumerable<DealershResponse>> GetAllAsync()
     {
-        var dealershes = await _dealershRepository.GetAllAsync();
-        return dealershes.ToResponse();
+        if (!_memoryCache.TryGetValue("dealershs", out IEnumerable<Dealersh> dealershs))
+        {
+            dealershs = await _dealershRepository.GetAllAsync();
+            _memoryCache.Set("dealershs", dealershs, _cacheOptionsProvider.GetCacheOptions());
+            AddCacheKey("dealershs");
+        }
+
+        return dealershs.ToResponse();
     }
 
     public async Task<DealershResponse> GetByIdAsync(int id)
     {
-        var dealersh = await _dealershRepository.GetByIdAsync(id);
+        if (!_memoryCache.TryGetValue($"dealershId:{id}", out Dealersh dealersh))
+        {
+            dealersh = await _dealershRepository.GetByIdAsync(id);
+            _memoryCache.Set($"dealershId:{id}", dealersh, _cacheOptionsProvider.GetCacheOptions());
+            AddCacheKey($"dealershId:{id}");
+        }
         return dealersh.ToResponse();
     }
 
     public async Task<bool> UpdateAsync(int id, DealershUpdateRequest request)
     {
-        var dealersh = await _dealershRepository.GetByIdAsync(id);
+        Dealersh? dealersh = await _dealershRepository.GetByIdAsync(id);
 
         if (dealersh is null)
             return false;
@@ -55,7 +76,9 @@ public class DealershService(IDealershRepository dealershRepository) : IDealersh
 
         dealersh.UpdatedAt = DateTime.Now;
 
+        ClearCache();
         await _dealershRepository.UpdateAsync(dealersh);
+      
         return true;
     }
 }

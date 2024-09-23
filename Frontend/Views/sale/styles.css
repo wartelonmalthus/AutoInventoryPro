@@ -150,3 +150,9 @@ a.sidebar-link:hover {
     box-shadow: 0.75px 0.75px 0.75px black;
     border-radius: 15%;
 }
+#sidebar:not(.expand) #user-info {
+    display: none;
+}
+#sidebar.expand #user-info {
+    display: block;
+}

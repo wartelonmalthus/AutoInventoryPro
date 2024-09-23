@@ -24,6 +24,7 @@ async function loadDealers() {
                         <td>${dealer.address}</td>
                         <td>${dealer.email}</td>
                         <td>${dealer.phone}</td>
+                        <td>${dealer.maximumCapacityVehicles}</td>
                         <td>
                             <button class="btn btn-warning btn-sm edit-btn" 
                             data-id="${dealer.idDealersh}" 
@@ -33,7 +34,8 @@ async function loadDealers() {
                             data-region="${dealer.region}"
                             data-cep="${dealer.postalCode}"
                             data-email="${dealer.email}"
-                            data-phone=${dealer.phone}"
+                            data-phone="${dealer.phone}"
+                            data-capacity="${dealer.maximumCapacityVehicles}"
                             >
                                 <i class="lni lni-pencil-alt"></i>
                             </button>
@@ -71,6 +73,7 @@ async function loadDealers() {
                     document.getElementById('editPostalCode').value = this.getAttribute('data-cep');
                     document.getElementById('editEmail').value = this.getAttribute('data-email');
                     document.getElementById('editPhone').value = this.getAttribute('data-phone');
+                    document.getElementById('editCapacity').value = this.getAttribute('data-capacity');
 
 
 
@@ -82,6 +85,7 @@ async function loadDealers() {
             });
 
             await loadUserInfo();
+            loadExpandMenu();
 
         } else {
             alert("Erro ao buscar os dados da API.");
@@ -99,7 +103,11 @@ document.getElementById('editForm').addEventListener('submit', async function(ev
         name: document.getElementById('editName').value,
         location: document.getElementById('editLocation').value,
         city: document.getElementById('editCity').value,
-
+        region: document.getElementById('editRegion').value,
+        postalCode: document.getElementById('editPostalCode').value,
+        email: document.getElementById('editEmail').value,
+        phone: document.getElementById('editPhone').value,
+        maximumCapacityVehicles: parseInt(document.getElementById('editCapacity').value)
     };
 
     try {
@@ -114,7 +122,7 @@ document.getElementById('editForm').addEventListener('submit', async function(ev
         if (response.ok) {
             alert('Concessionária atualizada com sucesso!');
 
-            loadDealers();
+            await loadDealers();
             
             let editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
             editModal.hide();
@@ -136,7 +144,7 @@ document.getElementById('addForm').addEventListener('submit', async function(eve
         postalCode: document.getElementById('addPostalCode').value,
         email: document.getElementById('addEmail').value,
         phone: document.getElementById('addPhone').value,
-        maximumCapacityVehicles: document.getElementById('addMaxCapacityVehicles').value
+        maximumCapacityVehicles: parseInt(document.getElementById('addMaxCapacityVehicles').value)
     };
 
     try {
@@ -150,7 +158,7 @@ document.getElementById('addForm').addEventListener('submit', async function(eve
 
         if (response.ok) {
             alert('Concessionária adicionada com sucesso!');
-            loadDealers();
+            await loadDealers();
 
             let addModal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
             addModal.hide();
@@ -176,7 +184,7 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', async func
                 let deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
                 deleteModal.hide();
 
-                loadDealers();
+                await loadDealers();
             } else {
                 alert('Erro ao excluir a concessionária.');
             }
@@ -196,6 +204,13 @@ function loadUserInfo() {
     } else {
         console.error('Nenhuma informação de usuário encontrada.');
     }
-  }
+}
+
+function loadExpandMenu(){
+    var sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.classList.add('expand');  
+    }
+}
 
 document.addEventListener("DOMContentLoaded", loadDealers);

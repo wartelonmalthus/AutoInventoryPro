@@ -71,6 +71,7 @@ async function loadClient() {
             });
 
             await loadUserInfo();
+            loadExpandMenu();
 
         } else {
             alert("Erro ao buscar os dados da API.");
@@ -183,7 +184,13 @@ function loadUserInfo() {
     } else {
         console.error('Nenhuma informação de usuário encontrada.');
     }
-  }
+}
 
+function loadExpandMenu(){
+    var sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.classList.add('expand');  
+    }
+}
 
 document.addEventListener("DOMContentLoaded", loadClient);

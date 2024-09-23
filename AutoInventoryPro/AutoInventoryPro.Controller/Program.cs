@@ -1,6 +1,8 @@
 using AutoInventoryPro.Infraestructure.Context;
 using AutoInventoryPro.Infraestructure.Interfaces;
 using AutoInventoryPro.Infraestructure.Repositories;
+using AutoInventoryPro.Models.Utils;
+using AutoInventoryPro.Services.Cache;
 using AutoInventoryPro.Services.Interfaces;
 using AutoInventoryPro.Services.Services;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,13 @@ internal class Program
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IVehicleService, VehicleService>();
         builder.Services.AddScoped<IAuthService,  AuthService>();
+
+        //cache
+        builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
+        builder.Services.AddSingleton<CacheOptionsProvider>();
+        builder.Services.AddMemoryCache();
+
+
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

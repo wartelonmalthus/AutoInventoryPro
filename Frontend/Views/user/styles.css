@@ -140,6 +140,13 @@ a.sidebar-link:hover {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+#sidebar:not(.expand) #user-info {
+    display: none;
+}
+#sidebar.expand #user-info {
+    display: block;
+}
+
 .title-table{
     background-color: #043f80;
     color: white;

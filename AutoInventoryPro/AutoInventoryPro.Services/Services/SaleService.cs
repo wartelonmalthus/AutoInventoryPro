@@ -1,17 +1,22 @@
 ﻿using AutoInventoryPro.Infraestructure.Interfaces;
+using AutoInventoryPro.Models.Entities;
+using AutoInventoryPro.Services.Cache;
 using AutoInventoryPro.Services.Interfaces;
 using AutoInventoryPro.Services.Mappers;
 using AutoInventoryPro.Views.Sale.Requests;
 using AutoInventoryPro.Views.Sale.Responses;
-
+using Microsoft.Extensions.Caching.Memory;
 namespace AutoInventoryPro.Services.Services;
 
-public class SaleService(ISaleRepository saleRepository, IDealershRepository dealershRepository, IClientRepository clientRepository, IVehicleRepository vehicleRepository) : ISaleService
+public class SaleService(ISaleRepository saleRepository, IDealershRepository dealershRepository,
+                         IClientRepository clientRepository, IVehicleRepository vehicleRepository,
+                         IMemoryCache memoryCache, CacheOptionsProvider cacheOptionsProvider) : BaseService(memoryCache), ISaleService
 {
     private readonly ISaleRepository _saleRepository = saleRepository;
     private readonly IDealershRepository _dealershRepository = dealershRepository;
     private readonly IClientRepository _clientRepository = clientRepository;
     private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
+    private readonly CacheOptionsProvider _cacheOptionsProvider = cacheOptionsProvider;
 
     public async Task<bool> AddAsync(SaleCreateRequest request)
     {
@@ -24,31 +29,45 @@ public class SaleService(ISaleRepository saleRepository, IDealershRepository dea
         if (!(await _vehicleRepository.VerifyExist(request.IdVehicle)))
             return false;
 
-
-        var sale = request.ToEntity();
-
-        await _saleRepository.AddAsync(sale);
+        ClearCache();
+        await _saleRepository.AddAsync(request.ToEntity());
+       
         return true;
 
     }
 
-    public Task DeleteAsync(int id) => _saleRepository.DeleteAsync(id);
+    public async Task DeleteAsync(int id) 
+    {
+        ClearCache();
+        await _saleRepository.DeleteAsync(id);
+    } 
 
     public async Task<IEnumerable<SaleResponse>> GetAllAsync()
     {
-        var sales = await _saleRepository.GetAllAsync();
+        if (!_memoryCache.TryGetValue("sales", out IEnumerable<Sale> sales))
+        {
+            sales = await _saleRepository.GetAllAsync();
+            _memoryCache.Set("sales", sales, _cacheOptionsProvider.GetCacheOptions());
+            AddCacheKey("sales");
+        }
+
         return sales.ToResponse();
     }
 
     public async Task<SaleResponse> GetByIdAsync(int id)
     {
-        var sale = await _saleRepository.GetByIdAsync(id);
+        if (!_memoryCache.TryGetValue($"saleId:{id}", out Sale sale))
+        {
+            sale = await _saleRepository.GetByIdAsync(id);
+            _memoryCache.Set($"saleId:{id}", sale, _cacheOptionsProvider.GetCacheOptions());
+            AddCacheKey($"saleId:{id}");
+        }
         return sale.ToResponse();
     }
 
     public async Task<bool> UpdateAsync(int id, SaleUpdateRequest request)
     {
-        var sale = await _saleRepository.GetByIdAsync(id);
+        Sale? sale = await _saleRepository.GetByIdAsync(id);
 
         if (sale is null)
             return false;
@@ -59,7 +78,9 @@ public class SaleService(ISaleRepository saleRepository, IDealershRepository dea
 
         sale.UpdatedAt = DateTime.Now;
 
+        ClearCache();
         await _saleRepository.UpdateAsync(sale);
+       
         return true;
     }
 }
