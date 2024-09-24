@@ -1,5 +1,4 @@
 ﻿using AutoInventoryPro.Infraestructure.Interfaces;
-using AutoInventoryPro.Infraestructure.Repositories;
 using AutoInventoryPro.Models.Entities;
 using AutoInventoryPro.Models.Enums;
 using AutoInventoryPro.Services.Cache;
@@ -34,7 +33,7 @@ public class UserService(IUserRepository userRepository, IMemoryCache memoryCach
         {
             users = await _userRepository.GetAllAsync();
             _memoryCache.Set("users", users, _cacheOptionsProvider.GetCacheOptions());
-            AddCacheKey("sales");
+            AddCacheKey("users");
         }
 
         return users.ToResponse();

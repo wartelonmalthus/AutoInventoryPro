@@ -227,7 +227,19 @@ function loadUserInfo() {
       const userData = JSON.parse(userInfo);
       const userInfoDiv = document.getElementById('user-info'); 
       userInfoDiv.innerHTML = `<p style="margin: 0; font-size: 15px">${userData.name}</p> <p style="margin-bottom:3px; font-size: 10px">${userData.userRole}</p>`;
-  } else {
+    
+      if (userData.userRole.toLowerCase() !== 'administrador') {
+        let userNavItem = document.querySelector('.sidebar-item a[href="../user/index.html"]');
+        let fabricatorNavItem = document.querySelector('.sidebar-item a[href="../Fabricator/index.html"]');
+        if (userNavItem) {
+            userNavItem.parentElement.style.display = 'none'; 
+        }
+        if(fabricatorNavItem){
+            fabricatorNavItem.parentElement.style.display = 'none'; 
+        }
+     }
+ 
+    } else {
       console.error('Nenhuma informação de usuário encontrada.');
   }
 }

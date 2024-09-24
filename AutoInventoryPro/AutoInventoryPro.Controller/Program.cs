@@ -1,3 +1,4 @@
+using AutoInventoryPro.Identity.Context;
 using AutoInventoryPro.Infraestructure.Context;
 using AutoInventoryPro.Infraestructure.Interfaces;
 using AutoInventoryPro.Infraestructure.Repositories;
@@ -6,6 +7,7 @@ using AutoInventoryPro.Services.Cache;
 using AutoInventoryPro.Services.Interfaces;
 using AutoInventoryPro.Services.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 internal class Program
 {
@@ -16,6 +18,10 @@ internal class Program
         builder.Services.AddDbContext<AutoInventoryProDbContext>(options =>
             options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("AutoInventoryDatabase"))
         );
+
+        builder.Services.AddDbContext<IdentityDataContext>(options =>
+          options.UseSqlServer(builder.Configuration.GetConnectionString("AutoInventoryDatabase"))
+      );
 
         //repository
         builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
@@ -33,7 +39,7 @@ internal class Program
         builder.Services.AddScoped<ISaleService, SaleService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IVehicleService, VehicleService>();
-        builder.Services.AddScoped<IAuthService,  AuthService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
 
         //cache
         builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
@@ -68,6 +74,7 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
         
         app.UseHttpsRedirection();
 

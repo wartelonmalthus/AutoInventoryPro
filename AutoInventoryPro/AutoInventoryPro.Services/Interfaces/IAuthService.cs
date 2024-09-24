@@ -1,5 +1,4 @@
-﻿using AutoInventoryPro.Models.Entities;
-using AutoInventoryPro.Views.Auth.Login;
+﻿using AutoInventoryPro.Views.Auth.Login;
 using AutoInventoryPro.Views.User.Responses;
 
 namespace AutoInventoryPro.Services.Interfaces;
